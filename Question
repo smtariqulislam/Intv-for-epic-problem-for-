@@ -1,2 +1,8 @@
-What’s happening when you try to open https://hoc.grapestl.com/
- is an unwanted redirect — instead of showing the page you want, your browser is sending you to a different URL (in this case something like https://cityofbaytown.org/?d=grapestl.com…). From what the server returns, that destination page indicates the original domain (grapestl.com) has expired or is no longer properly configured, and the redirect is likely automatic or due to a domain parking/redirect service.
+1. What’s happening when you try to open https://hoc.grapestl.com/
+is an unwanted redirect — instead of showing the page you want, 
+your browser is sending you to a different URL (in this case something like 
+https://cityofbaytown.org/?d=grapestl.com…). From what the server returns, that destination page
+indicates the original domain (grapestl.com) has expired or is no longer properly configured, 
+and the redirect is likely automatic or due to a domain parking/redirect service.
+
+2. SQL nvarchar to bigin or int problem (object object problem)
