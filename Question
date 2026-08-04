@@ -11,3 +11,45 @@ and the redirect is likely automatic or due to a domain parking/redirect service
 
 4. hr salary problem solved daily base and monthy base allowance problem dedication problem.
 
+5. someTime sql table vitore column vitore je data thake seta space theke jay oita remove na korle data mile na. problem hoi
+
+LastCharacterCode = 10
+ASCII 10 মানে Line Feed / New Line
+তাই এটা সাধারণ space না। এজন্য RTRIM() কাজ করেনি।
+
+SELECT
+    EmployeePin,
+    '>' + EmployeeName + '<' AS CleanName,
+    LEN(EmployeeName) AS NameLength,
+    DATALENGTH(EmployeeName) AS DataLength
+FROM HrEmployee
+WHERE EmployeePin IN (
+    'UMJ01648','UMJ00300','UMJ00227','UMJ00457','UMJ00180',
+    'UMJ01232','UMJ00713','UMJ00745','UMJ01148','UMJ00913',
+    'UMJ00965','UMJ01092','UMJ01206','UMJ01221','UMJ01376',
+    'UMJ01322','UMJ01363','UMJ01597','UMJ01570','UMJ01596',
+    'UMJ00474','UMJ00364','UMJ01321','UMJ00567','UMJ01015',
+    'UMJ00021','UMJ00683','UMJ00119','UMJ00248'
+);
+
+
+UPDATE HrEmployee
+SET EmployeeName = LTRIM(RTRIM(
+    REPLACE(
+        REPLACE(EmployeeName, CHAR(13), ''),
+        CHAR(10), ''
+    )
+))
+WHERE EmployeePin IN (
+    'UMJ01648','UMJ00300','UMJ00227','UMJ00457','UMJ00180',
+    'UMJ01232','UMJ00713','UMJ00745','UMJ01148','UMJ00913',
+    'UMJ00965','UMJ01092','UMJ01206','UMJ01221','UMJ01376',
+    'UMJ01322','UMJ01363','UMJ01597','UMJ01570','UMJ01596',
+    'UMJ00474','UMJ00364','UMJ01321','UMJ00567','UMJ01015',
+    'UMJ00021','UMJ00683','UMJ00119','UMJ00248'
+);
+
+
+
+
+
