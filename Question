@@ -51,5 +51,40 @@ WHERE EmployeePin IN (
 
 
 
+6. experience keno table column delete hoi na keno edit kora jay na.::::
+
+ami ajke akta jinish shiklam seta delete korar time jodi kono table foriege key thakle taile delete ROLLBACK TRANSACTION; protheme korte hobe naile ... 
+COMMIT TRANSACTION;(pore dibe aita ROLLBACK TRANSACTION ) anek time commit transaction hoile table column edit kora jay na delete kora jay na. then resart korte. expericen
+
+### আজকের নতুন অভিজ্ঞতা — SQL Server Transaction ও Foreign Key
+
+আজ SQL Server-এ কাজ করতে গিয়ে একটি গুরুত্বপূর্ণ বিষয় শিখলাম।
+
+কোনো Table থেকে Data DELETE করার সময় যদি সেই Table-এর সঙ্গে অন্য Table-এর **Foreign Key Relationship** থাকে, তাহলে SQL Server `Foreign Key Constraint` Error দিতে পারে।
+
+আজ আমার ক্ষেত্রেও এমন একটি সমস্যা হয়েছিল। DELETE করার জন্য `BEGIN TRANSACTION` ব্যবহার করেছিলাম, কিন্তু Error হওয়ার পর Transaction সঠিকভাবে বন্ধ করিনি।
+
+ফলে Transaction খোলা অবস্থায় থেকে যায় এবং Database-এ Lock তৈরি হয়। পরবর্তীতে Table-এর Column Edit, Relationship পরিবর্তন কিংবা DELETE করতে গিয়ে Timeout সমস্যার সম্মুখীন হই।
+
+পরে বুঝতে পারলাম, Transaction সঠিকভাবে পরিচালনা করা কতটা গুরুত্বপূর্ণ।
+
+**আজ যা শিখলাম:**
+
+1. `BEGIN TRANSACTION` দিয়ে কাজ শুরু করতে হয়।
+2. কাজ সফল হলে `COMMIT TRANSACTION` দিয়ে পরিবর্তন স্থায়ী করতে হয়।
+3. কোনো Error হলে বা পরিবর্তন বাতিল করতে চাইলে `ROLLBACK TRANSACTION` ব্যবহার করতে হয়।
+4. `COMMIT` বা `ROLLBACK` না করলে Transaction খোলা থাকতে পারে, যার ফলে অন্য Query Block হতে পারে।
+5. `@@TRANCOUNT` এবং `XACT_STATE()` দিয়ে Transaction-এর অবস্থা পরীক্ষা করা যায়।
+6. প্রতিটি SSMS Query Window-এর আলাদা Session থাকে। তাই যে Session-এ Transaction খোলা আছে, সাধারণত সেই Session থেকেই Rollback করতে হয়।
+7. Foreign Key Error সমাধান করতে হলে আগে সম্পর্কিত Table-এর Data ও Dependency যাচাই করতে হয়।
+
+**গুরুত্বপূর্ণ শিক্ষা:** Foreign Key থাকলেই আগে `ROLLBACK` করতে হয়—এমন নয়। DELETE ব্যর্থ হলে Transaction-এর অবস্থা দেখে প্রয়োজন অনুযায়ী Rollback করতে হয়। আর `COMMIT` নিজে Lock তৈরি করে না; বরং সফল Transaction শেষ করে Lock মুক্ত করতে সাহায্য করে।
+
+আজকের অভিজ্ঞতা থেকে বুঝলাম, Database-এ শুধু Query লেখা জানলেই হয় না; Transaction Management, Foreign Key এবং Locking সম্পর্কে ভালো ধারণা থাকাও জরুরি।
+
+**প্রতিদিনের বাস্তব সমস্যাই একজন Developer-এর সবচেয়ে বড় শেখার সুযোগ।**
+
+
+
 
 
